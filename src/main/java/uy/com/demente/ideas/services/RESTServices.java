@@ -1,4 +1,4 @@
-package uy.com.demente.ideas.REST;
+package uy.com.demente.ideas.services;
 
 import java.util.List;
 
@@ -12,6 +12,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import com.google.gson.Gson;
+
+import uy.com.demente.ideas.dto.PersonDTO;
 
 @Path("person")
 public class RESTServices {

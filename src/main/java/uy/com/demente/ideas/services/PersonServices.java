@@ -1,6 +1,8 @@
-package uy.com.demente.ideas.REST;
+package uy.com.demente.ideas.services;
 
 import java.util.List;
+
+import uy.com.demente.ideas.dto.PersonDTO;
 
 public class PersonServices {
 

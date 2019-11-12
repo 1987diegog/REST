@@ -1,4 +1,4 @@
-package uy.com.demente.ideas.REST;
+package uy.com.demente.ideas.dto;
 
 import java.io.Serializable;
 
