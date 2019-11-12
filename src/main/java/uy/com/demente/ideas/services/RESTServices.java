@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.PATCH;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -72,21 +71,6 @@ public class RESTServices {
 	@PUT
 	@Produces("application/json")
 	public String modifyPersonPUT(PersonDTO personDTO) {
-
-		System.out.println("Name: " + personDTO.getName());
-		System.out.println("LastName: " + personDTO.getLastName());
-		System.out.println("Age: " + personDTO.getAge());
-
-		personServices.modifyPerson(personDTO);
-		System.out.println("Persona modificada con exito");
-		return "OK";
-	}
-
-	/**
-	 */
-	@PATCH
-	@Produces("application/json")
-	public String modifyPersonPATCH(PersonDTO personDTO) {
 
 		System.out.println("Name: " + personDTO.getName());
 		System.out.println("LastName: " + personDTO.getLastName());
