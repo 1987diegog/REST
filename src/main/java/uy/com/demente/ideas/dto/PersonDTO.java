@@ -11,7 +11,9 @@ public class PersonDTO implements Serializable {
 
 	private String name;
 	private String lastName;
+	private String streetAddress;
 	private int age;
+	private String cellPhone;
 
 	public String getName() {
 		return name;
@@ -35,6 +37,29 @@ public class PersonDTO implements Serializable {
 
 	public void setAge(int age) {
 		this.age = age;
+	}
+
+	public String getStreetAddress() {
+		return streetAddress;
+	}
+
+	public void setStreetAddress(String streetAddress) {
+		this.streetAddress = streetAddress;
+	}
+
+	public String getCellPhone() {
+		return cellPhone;
+	}
+
+	public void setCellPhone(String cellPhone) {
+		this.cellPhone = cellPhone;
+	}
+
+	@Override
+	public String toString() {
+
+		return "[" + "\n name=" + name + "\n lastName=" + lastName + "\n streetAddress=" + streetAddress + "\n age="
+				+ age + "\n cellPhone=" + cellPhone + "\n]";
 	}
 
 }
