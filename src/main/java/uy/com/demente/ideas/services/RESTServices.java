@@ -2,6 +2,7 @@ package uy.com.demente.ideas.services;
 
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -14,49 +15,30 @@ import javax.ws.rs.core.Response;
 import com.google.gson.Gson;
 
 import uy.com.demente.ideas.dto.PersonDTO;
+import uy.com.demente.ideas.factrory.BOFactory;
+import uy.com.demente.ideas.factrory.DTOFactory;
+import uy.com.demente.ideas.model.Person;
 
 @Path("persons")
 public class RESTServices {
 
+	@EJB
 	private PersonServices personServices;
 
 	/**
 	 */
 	@POST
 	@Produces("application/json")
-	public Response addPerson(PersonDTO newPersonDTO) {
+	public Response addPerson(PersonDTO personDTO) {
 
 		Response.ResponseBuilder builder = null;
 
-		PersonDTO personDTO = new PersonDTO();
-
-		System.out.println("Name: " + newPersonDTO.getName());
-		System.out.println("LastName: " + newPersonDTO.getLastName());
-		System.out.println("CellPhone: " + newPersonDTO.getCellPhone());
-		System.out.println("StreetAddress: " + newPersonDTO.getStreetAddress());
-		System.out.println("Age: " + newPersonDTO.getAge());
-
-		String firstName = newPersonDTO.getName();
-		personDTO.setName(firstName);
-
-		String lastName = newPersonDTO.getLastName();
-		personDTO.setLastName(lastName);
-
-		String streetAddress = newPersonDTO.getStreetAddress();
-		personDTO.setStreetAddress(streetAddress);
-
-		String cellPhone = newPersonDTO.getCellPhone();
-		personDTO.setCellPhone(cellPhone);
-
-		int age = newPersonDTO.getAge();
-		personDTO.setAge(age);
-
-		personServices = new PersonServices();
-		personServices.addPerson(personDTO);
-		System.out.println("Nuevo estudiante");
+		Person person = BOFactory.getPerson(personDTO);
+		personServices.addPerson(person);
+		System.out.println("Added person");
 
 		// Creo una respuesta con codigo "OK".
-		builder = Response.status(Response.Status.OK).entity("Add Person:  Ok");
+		builder = Response.status(Response.Status.OK).entity("Added Person:  Ok");
 		return builder.build();
 	}
 
@@ -69,8 +51,10 @@ public class RESTServices {
 	public String getPerson(@PathParam("id") String id) {
 
 		System.out.println("ID person: " + id);
-		PersonDTO personDTO = personServices.getPerson(Long.valueOf(id));
+		Person person = personServices.getPerson(Long.valueOf(id));
+
 		Gson gson = new Gson();
+		PersonDTO personDTO = DTOFactory.getPersonDTO(person);
 		String json = gson.toJson(personDTO);
 
 		return json;
@@ -86,11 +70,11 @@ public class RESTServices {
 
 		Response.ResponseBuilder builder = null;
 
-		personServices = new PersonServices();
-		List<PersonDTO> listPersonDTO = personServices.getPersons();
+		List<Person> listPersons = personServices.getPersons();
+		List<PersonDTO> listPersonsDTO = DTOFactory.getListPersonDTO(listPersons);
 
 		Gson gson = new Gson();
-		String json = gson.toJson(listPersonDTO);
+		String json = gson.toJson(listPersonsDTO);
 
 		// Creo una respuesta con codigo "OK".
 		builder = Response.status(Response.Status.OK).entity(json);
@@ -103,12 +87,9 @@ public class RESTServices {
 	@Produces("application/json")
 	public String modifyPersonPUT(PersonDTO personDTO) {
 
-		System.out.println("Name: " + personDTO.getName());
-		System.out.println("LastName: " + personDTO.getLastName());
-		System.out.println("Age: " + personDTO.getAge());
-
-		personServices.modifyPerson(personDTO);
-		System.out.println("Persona modificada con exito");
+		Person person = BOFactory.getPerson(personDTO);
+		personServices.modifyPerson(person);
+		System.out.println("Person modify");
 		return "OK";
 	}
 

@@ -3,22 +3,30 @@ package uy.com.demente.ideas.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
+
 import com.github.javafaker.Faker;
 
 import uy.com.demente.ideas.dto.PersonDTO;
 
+@Startup
+@Singleton
 public class DataCollection {
 
 	private List<PersonDTO> list;
+	private static final int CANT_PERSONS = 200;
+	private static final int AGE_INIT = 18;
+	private static final int AGE_FINAL = 68;
 
-	public DataCollection(int cant) {
+	public DataCollection() {
 
 		list = new ArrayList<>();
 
 		Faker faker;
 		PersonDTO personDTO = null;
 
-		for (int i = 0; i < cant; i++) {
+		for (int i = 0; i < CANT_PERSONS; i++) {
 
 			personDTO = new PersonDTO();
 			faker = new Faker();
@@ -36,7 +44,7 @@ public class DataCollection {
 			String cellPhone = faker.phoneNumber().cellPhone();
 			personDTO.setCellPhone(cellPhone);
 
-			int age = faker.number().numberBetween(18, 84);
+			int age = faker.number().numberBetween(AGE_INIT, AGE_FINAL);
 			personDTO.setAge(age);
 
 			list.add(personDTO);

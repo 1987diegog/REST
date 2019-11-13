@@ -1,11 +1,8 @@
-package uy.com.demente.ideas.dto;
+package uy.com.demente.ideas.model;
 
 import java.io.Serializable;
 
-/**
- * @author DieSil
- */
-public class PersonDTO implements Serializable {
+public class Person implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -67,8 +64,7 @@ public class PersonDTO implements Serializable {
 	@Override
 	public String toString() {
 
-		return "[" + "\n name=" + name + "\n lastName=" + lastName + "\n streetAddress=" + streetAddress + "\n age="
-				+ age + "\n cellPhone=" + cellPhone + "\n]";
+		return "[" + "\n id=" + id + "\n name=" + name + "\n lastName=" + lastName + "\n streetAddress=" + streetAddress
+				+ "\n age=" + age + "\n cellPhone=" + cellPhone + "\n]";
 	}
-
 }
