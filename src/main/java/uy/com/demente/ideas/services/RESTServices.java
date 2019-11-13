@@ -37,8 +37,12 @@ public class RESTServices {
 		personServices.addPerson(person);
 		System.out.println("Added person");
 
+		Gson gson = new Gson();
+		String message = "Added Person:  Ok";
+		String json = gson.toJson(message);
+		
 		// Creo una respuesta con codigo "OK".
-		builder = Response.status(Response.Status.OK).entity("Added Person:  Ok");
+		builder = Response.status(Response.Status.OK).entity(json);
 		return builder.build();
 	}
 
