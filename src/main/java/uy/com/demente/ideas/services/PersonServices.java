@@ -12,23 +12,33 @@ import uy.com.demente.ideas.utils.CacheHelper;
 @Local
 public class PersonServices {
 
+	private CacheHelper<Person> cachePerson;
+
+	public PersonServices() {
+	}
+
+	public void initCachePersons(String nameCache, int sizeHeap) {
+		cachePerson = new CacheHelper<Person>(Person.class, nameCache);
+		cachePerson.initCacheHelper(sizeHeap);
+	}
+
 	public void addPerson(Person person) {
-		CacheHelper.getSingletonCacheHelper().add(person);
+		cachePerson.add(person);
 	}
 
 	public Person getPerson(Long id) {
-		return CacheHelper.getSingletonCacheHelper().get(id);
+		return cachePerson.get(id);
 	}
 
 	public List<Person> getPersons() {
-		return CacheHelper.getSingletonCacheHelper().getAll();
+		return cachePerson.getAll();
 	}
 
 	public Person modifyPerson(Person person) {
-		return CacheHelper.getSingletonCacheHelper().replace(person.getId(), person);
+		return cachePerson.replace(person.getId(), person);
 	}
 
 	public void deletePerson(Long id) {
-		CacheHelper.getSingletonCacheHelper().deletePerson(id);
+		cachePerson.delete(id);
 	}
 }

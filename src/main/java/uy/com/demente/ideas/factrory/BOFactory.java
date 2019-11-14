@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import uy.com.demente.ideas.dto.BookDTO;
 import uy.com.demente.ideas.dto.PersonDTO;
+import uy.com.demente.ideas.model.Book;
 import uy.com.demente.ideas.model.Person;
 
 public class BOFactory {
@@ -24,7 +26,7 @@ public class BOFactory {
 	public static Person getPerson(PersonDTO personDTO) {
 
 		Person person = null;
-		
+
 		if (personDTO != null) {
 
 			person = new Person();
@@ -43,6 +45,42 @@ public class BOFactory {
 		}
 
 		return person;
+	}
+
+	public static List<Book> getListBooks(List<BookDTO> listBookDTO) {
+
+		List<Book> listBook = null;
+		if (listBookDTO != null) {
+
+			listBook = listBookDTO.stream().map(BOFactory::getBook).collect(Collectors.toCollection(ArrayList::new));
+		}
+
+		return listBook;
+	}
+
+	public static Book getBook(BookDTO bookDTO) {
+
+		Book book = null;
+
+		if (bookDTO != null) {
+
+			book = new Book();
+
+			System.out.println("Title: " + bookDTO.getTitle());
+			book.setTitle(bookDTO.getTitle());
+
+			System.out.println("Author: " + bookDTO.getAuthor());
+			book.setAuthor(bookDTO.getAuthor());
+
+			System.out.println("Genre: " + bookDTO.getGenre());
+			book.setGenre(bookDTO.getGenre());
+
+			System.out.println("Publisher: " + bookDTO.getPublisher());
+			book.setPublisher(bookDTO.getPublisher());
+
+		}
+
+		return book;
 	}
 
 }

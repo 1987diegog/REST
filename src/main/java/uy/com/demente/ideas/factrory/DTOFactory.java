@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import uy.com.demente.ideas.dto.BookDTO;
 import uy.com.demente.ideas.dto.PersonDTO;
+import uy.com.demente.ideas.model.Book;
 import uy.com.demente.ideas.model.Person;
 
 public class DTOFactory {
@@ -43,6 +45,43 @@ public class DTOFactory {
 		}
 
 		return personDTO;
+	}
+
+	public static List<BookDTO> getListBooks(List<Book> listBook) {
+
+		List<BookDTO> listBookDTO = null;
+		if (listBook != null) {
+
+			listBookDTO = listBook.stream().map(DTOFactory::getBookDTO)
+					.collect(Collectors.toCollection(ArrayList::new));
+		}
+
+		return listBookDTO;
+	}
+
+	public static BookDTO getBookDTO(Book book) {
+
+		BookDTO bookDTO = null;
+
+		if (book != null) {
+
+			bookDTO = new BookDTO();
+
+			System.out.println("Title: " + book.getTitle());
+			bookDTO.setTitle(book.getTitle());
+
+			System.out.println("Author: " + book.getAuthor());
+			bookDTO.setAuthor(book.getAuthor());
+
+			System.out.println("Genre: " + book.getGenre());
+			bookDTO.setGenre(book.getGenre());
+
+			System.out.println("Publisher: " + book.getPublisher());
+			bookDTO.setPublisher(book.getPublisher());
+
+		}
+
+		return bookDTO;
 	}
 
 }
