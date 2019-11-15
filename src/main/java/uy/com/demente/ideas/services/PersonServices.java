@@ -5,40 +5,37 @@ import java.util.List;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 
+import uy.com.demente.ideas.DAO.PersonDAO;
 import uy.com.demente.ideas.model.Person;
-import uy.com.demente.ideas.utils.CacheHelper;
 
 @Stateless
 @Local
 public class PersonServices {
 
-	private CacheHelper<Person> cachePerson;
-
-	public PersonServices() {
-	}
-
-	public void initCachePersons(String nameCache, int sizeHeap) {
-		cachePerson = new CacheHelper<Person>(Person.class, nameCache);
-		cachePerson.initCacheHelper(sizeHeap);
-	}
+	private PersonDAO personDAO;
 
 	public void addPerson(Person person) {
-		cachePerson.add(person);
+		personDAO = PersonDAO.getInstance();
+		personDAO.addPerson(person);
 	}
 
 	public Person getPerson(Long id) {
-		return cachePerson.get(id);
+		personDAO = PersonDAO.getInstance();
+		return personDAO.getPerson(id);
 	}
 
 	public List<Person> getPersons() {
-		return cachePerson.getAll();
+		personDAO = PersonDAO.getInstance();
+		return personDAO.getPersons();
 	}
 
 	public Person modifyPerson(Person person) {
-		return cachePerson.replace(person.getId(), person);
+		personDAO = PersonDAO.getInstance();
+		return personDAO.modifyPerson(person);
 	}
 
 	public void deletePerson(Long id) {
-		cachePerson.delete(id);
+		personDAO = PersonDAO.getInstance();
+		personDAO.deletePerson(id);
 	}
 }

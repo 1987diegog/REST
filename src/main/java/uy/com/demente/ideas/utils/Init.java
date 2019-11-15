@@ -4,6 +4,8 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 
+import uy.com.demente.ideas.DAO.BookDAO;
+import uy.com.demente.ideas.DAO.PersonDAO;
 import uy.com.demente.ideas.model.Book;
 import uy.com.demente.ideas.model.LoadEnum;
 import uy.com.demente.ideas.model.Person;
@@ -12,10 +14,8 @@ import uy.com.demente.ideas.model.Person;
 @Singleton
 public class Init {
 
-	public static final int CONFIG_HEAP = 200;
 	public static final LoadEnum LOAD = LoadEnum.ALL;
 	public static final String NAME_CACHE_PERSONS = "dementeCachePersons";
-	public static final String NAME_CACHE_BOOKS = "dementeCacheBooks";
 
 	public Init() {
 	}
@@ -25,23 +25,21 @@ public class Init {
 
 		if (LOAD.equals(LoadEnum.ALL) || LOAD.equals(LoadEnum.PERSONS)) {
 
-			CacheHelper<Person> cachePerson = new CacheHelper<Person>(Person.class, NAME_CACHE_PERSONS);
-			cachePerson.initCacheHelper(CONFIG_HEAP);
+			PersonDAO personDAO = PersonDAO.getInstance();
 
-			for (int i = 0; i < CONFIG_HEAP; i++) {
-				Person mockPerson = MockPersons.generateMockPerson(CacheHelper.getSequence());
-				cachePerson.add(mockPerson);
+			for (int i = 0; i < PersonDAO.CONFIG_HEAP; i++) {
+				Person mockPerson = MockPersons.generateMockPerson(PersonDAO.getSequence());
+				personDAO.addPerson(mockPerson);
 			}
 		}
 
 		if (LOAD.equals(LoadEnum.ALL) || LOAD.equals(LoadEnum.BOOKS)) {
 
-			CacheHelper<Book> cacheBook = new CacheHelper<Book>(Book.class, NAME_CACHE_BOOKS);
-			cacheBook.initCacheHelper(CONFIG_HEAP);
+			BookDAO bookDAO = BookDAO.getInstance();
 
-			for (int i = 0; i < CONFIG_HEAP; i++) {
-				Book mockBook = MockBooks.generateMockBook(CacheHelper.getSequence());
-				cacheBook.add(mockBook);
+			for (int i = 0; i < BookDAO.CONFIG_HEAP; i++) {
+				Book mockBook = MockBooks.generateMockBook(BookDAO.getSequence());
+				bookDAO.addBook(mockBook);
 			}
 		}
 	}

@@ -7,13 +7,13 @@ import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
-import uy.com.demente.ideas.services.RESTServices;
+import uy.com.demente.ideas.rest.PersonsRESTServices;
 
 @ApplicationPath("/rest")
 public class JaxRsActivator extends Application {
 
 	@Override
 	public Set<Class<?>> getClasses() {
-		return new HashSet<Class<?>>(Arrays.asList(RESTServices.class));
+		return new HashSet<Class<?>>(Arrays.asList(PersonsRESTServices.class));
 	}
 }

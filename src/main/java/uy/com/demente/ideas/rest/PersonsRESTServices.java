@@ -1,4 +1,4 @@
-package uy.com.demente.ideas.services;
+package uy.com.demente.ideas.rest;
 
 import java.util.List;
 
@@ -18,9 +18,10 @@ import uy.com.demente.ideas.dto.PersonDTO;
 import uy.com.demente.ideas.factrory.BOFactory;
 import uy.com.demente.ideas.factrory.DTOFactory;
 import uy.com.demente.ideas.model.Person;
+import uy.com.demente.ideas.services.PersonServices;
 
 @Path("persons")
-public class RESTServices {
+public class PersonsRESTServices {
 
 	@EJB
 	private PersonServices personServices;

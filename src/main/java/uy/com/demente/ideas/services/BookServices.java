@@ -5,37 +5,37 @@ import java.util.List;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 
+import uy.com.demente.ideas.DAO.BookDAO;
 import uy.com.demente.ideas.model.Book;
-import uy.com.demente.ideas.utils.CacheHelper;
 
 @Stateless
 @Local
 public class BookServices {
 
-	private CacheHelper<Book> cacheBook;
-
-	public void initCacheBooks(String nameCache, int sizeHeap) {
-		cacheBook = new CacheHelper<Book>(Book.class, nameCache);
-		cacheBook.initCacheHelper(sizeHeap);
-	}
+	private BookDAO bookDAO;
 
 	public void addBook(Book book) {
-		cacheBook.add(book);
+		bookDAO = BookDAO.getInstance();
+		bookDAO.addBook(book);
 	}
 
 	public Book getBook(Long id) {
-		return cacheBook.get(id);
+		bookDAO = BookDAO.getInstance();
+		return bookDAO.getBook(id);
 	}
 
 	public List<Book> getBooks() {
-		return cacheBook.getAll();
+		bookDAO = BookDAO.getInstance();
+		return bookDAO.getBooks();
 	}
 
 	public Book modifyBook(Book book) {
-		return cacheBook.replace(book.getId(), book);
+		bookDAO = BookDAO.getInstance();
+		return bookDAO.modifyBook(book);
 	}
 
 	public void deleteBook(Long id) {
-		cacheBook.delete(id);
+		bookDAO = BookDAO.getInstance();
+		bookDAO.deleteBook(id);
 	}
 }

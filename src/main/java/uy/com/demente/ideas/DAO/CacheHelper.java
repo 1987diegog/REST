@@ -1,4 +1,4 @@
-package uy.com.demente.ideas.utils;
+package uy.com.demente.ideas.DAO;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,16 +21,15 @@ public class CacheHelper<T> {
 	private CacheManager cacheManager;
 	private Cache<Long, T> dementeCache;
 	private String nameCache;
-	private static Long sequence;
 
 	/**
 	 */
-	public CacheHelper(Class<T> cacheType, String nameCache) {
+	protected CacheHelper(Class<T> cacheType, String nameCache) {
 		this.cacheType = cacheType;
 		this.nameCache = nameCache;
 	}
 
-	public void initCacheHelper(int heapSize) {
+	protected void initCacheHelper(int heapSize) {
 
 		cacheManager = CacheManagerBuilder.newCacheManagerBuilder().build();
 		cacheManager.init();
@@ -38,39 +37,33 @@ public class CacheHelper<T> {
 		dementeCache = cacheManager.createCache(nameCache, CacheConfigurationBuilder
 				.newCacheConfigurationBuilder(Long.class, cacheType, ResourcePoolsBuilder.heap(heapSize)));
 
-		sequence = 0L;
-	}
-
-	public static Long getSequence() {
-		return sequence++;
-
 	}
 
 	public Cache<Long, T> getDementeCacheFromCacheManager() {
 		return cacheManager.getCache(nameCache, Long.class, cacheType);
 	}
 
-	public void add(T data) {
+	protected void add(T data, Long index) {
 		Cache<Long, T> cache = getDementeCacheFromCacheManager();
-		cache.put(sequence, data);
+		cache.put(index, data);
 	}
 
-	public T get(Long id) {
+	protected T get(Long id) {
 		Cache<Long, T> cache = getDementeCacheFromCacheManager();
 		return cache.get(id);
 	}
 
-	public T replace(Long id, T data) {
+	protected T replace(Long id, T data) {
 		Cache<Long, T> cache = getDementeCacheFromCacheManager();
 		return cache.replace(id, data);
 	}
 
-	public void delete(Long id) {
+	protected void delete(Long id) {
 		Cache<Long, T> cache = getDementeCacheFromCacheManager();
 		cache.remove(id);
 	}
 
-	public List<T> getAll() {
+	protected List<T> getAll() {
 
 		List<Cache.Entry<Long, T>> listEntry = StreamSupport
 				.stream(getDementeCacheFromCacheManager().spliterator(), false).collect(Collectors.toList());
@@ -80,11 +73,11 @@ public class CacheHelper<T> {
 
 	}
 
-	public Cache<Long, T> getDementeCache() {
+	protected Cache<Long, T> getDementeCache() {
 		return dementeCache;
 	}
 
-	public void setDementeCache(Cache<Long, T> dementeCache) {
+	protected void setDementeCache(Cache<Long, T> dementeCache) {
 		this.dementeCache = dementeCache;
 	}
 }
