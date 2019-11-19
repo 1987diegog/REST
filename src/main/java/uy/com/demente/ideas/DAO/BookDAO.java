@@ -11,7 +11,7 @@ public class BookDAO extends CacheHelper<Book> {
 
 	private static BookDAO bookDAO;
 
-	public static final int CONFIG_HEAP = 200;
+	public static final int CONFIG_HEAP = 10;
 	public static final String NAME_CACHE_BOOKS = "dementeCacheBooks";
 
 	private static Long sequence;

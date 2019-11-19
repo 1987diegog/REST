@@ -11,7 +11,7 @@ public class PersonDAO extends CacheHelper<Person> {
 
 	private static PersonDAO personDAO;
 
-	public static final int CONFIG_HEAP = 200;
+	public static final int CONFIG_HEAP = 10;
 	public static final String NAME_CACHE_PERSONS = "dementeCachePersons";
 
 	private static Long sequence;

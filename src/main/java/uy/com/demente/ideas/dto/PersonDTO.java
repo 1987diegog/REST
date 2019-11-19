@@ -15,6 +15,7 @@ public class PersonDTO implements Serializable {
 	private String streetAddress;
 	private int age;
 	private String cellPhone;
+	private String email;
 
 	public Long getId() {
 		return id;
@@ -64,11 +65,19 @@ public class PersonDTO implements Serializable {
 		this.cellPhone = cellPhone;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Override
 	public String toString() {
 
 		return "[" + "\n name=" + name + "\n lastName=" + lastName + "\n streetAddress=" + streetAddress + "\n age="
-				+ age + "\n cellPhone=" + cellPhone + "\n]";
+				+ age + "\n cellPhone=" + cellPhone + "\n email=" + email + "\n]";
 	}
 
 }
