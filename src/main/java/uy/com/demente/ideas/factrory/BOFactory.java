@@ -35,6 +35,8 @@ public class BOFactory {
 			person.setName(personDTO.getName());
 			System.out.println("LastName: " + personDTO.getLastName());
 			person.setLastName(personDTO.getLastName());
+			System.out.println("Email: " + personDTO.getEmail());
+			person.setEmail(personDTO.getEmail());
 			System.out.println("CellPhone: " + personDTO.getCellPhone());
 			person.setCellPhone(personDTO.getCellPhone());
 			System.out.println("StreetAddress: " + personDTO.getStreetAddress());

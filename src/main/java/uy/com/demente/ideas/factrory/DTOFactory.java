@@ -36,6 +36,8 @@ public class DTOFactory {
 			personDTO.setName(person.getName());
 			System.out.println("LastName: " + person.getLastName());
 			personDTO.setLastName(person.getLastName());
+			System.out.println("Email: " + person.getEmail());
+			personDTO.setEmail(person.getEmail());
 			System.out.println("Age: " + person.getAge());
 			personDTO.setAge(person.getAge());
 			System.out.println("CellPhone: " + person.getCellPhone());

@@ -14,9 +14,9 @@ public class PersonServices {
 
 	private PersonDAO personDAO;
 
-	public void addPerson(Person person) {
+	public long addPerson(Person person) {
 		personDAO = PersonDAO.getInstance();
-		personDAO.addPerson(person);
+		return personDAO.addPerson(person);
 	}
 
 	public Person getPerson(Long id) {

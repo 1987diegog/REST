@@ -35,13 +35,15 @@ public class PersonsRESTServices {
 		Response.ResponseBuilder builder = null;
 
 		Person person = BOFactory.getPerson(personDTO);
-		personServices.addPerson(person);
+		Long idPerson = personServices.addPerson(person);
 		System.out.println("Added person");
 
+		Person personAdded = personServices.getPerson(Long.valueOf(idPerson));
+
 		Gson gson = new Gson();
-		String message = "Added Person:  Ok";
-		String json = gson.toJson(message);
-		
+		PersonDTO personAddedDTO = DTOFactory.getPersonDTO(personAdded);
+		String json = gson.toJson(personAddedDTO);
+
 		// Creo una respuesta con codigo "OK".
 		builder = Response.status(Response.Status.OK).entity(json);
 		return builder.build();

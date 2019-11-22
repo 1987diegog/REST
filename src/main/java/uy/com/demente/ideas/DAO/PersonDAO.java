@@ -39,12 +39,15 @@ public class PersonDAO extends CacheHelper<Person> {
 	}
 
 	public static Long getSequence() {
-		return sequence++;
-
+		System.out.println("Current sequence Person: " + sequence);
+		sequence++;
+		System.out.println("Next sequence Person: " + sequence);
+		return sequence;
 	}
 
-	public void addPerson(Person person) {
-		this.add(person, sequence);
+	public long addPerson(Person person) {
+		this.add(person, getSequence());
+		return sequence;
 	}
 
 	public Person getPerson(Long id) {
