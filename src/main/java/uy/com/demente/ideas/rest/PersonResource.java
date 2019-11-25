@@ -15,16 +15,19 @@ import javax.ws.rs.core.Response;
 import com.google.gson.Gson;
 
 import uy.com.demente.ideas.dto.PersonDTO;
-import uy.com.demente.ideas.factrory.BOFactory;
-import uy.com.demente.ideas.factrory.DTOFactory;
+import uy.com.demente.ideas.factory.BOFactory;
+import uy.com.demente.ideas.factory.DTOFactory;
 import uy.com.demente.ideas.model.Person;
-import uy.com.demente.ideas.services.PersonServices;
+import uy.com.demente.ideas.services.PersonService;
 
+/**
+ * @author 1987diegog
+ */
 @Path("persons")
-public class PersonsRESTServices {
+public class PersonResource {
 
 	@EJB
-	private PersonServices personServices;
+	private PersonService personServices;
 
 	/**
 	 */
@@ -71,7 +74,6 @@ public class PersonsRESTServices {
 	 * @return all person on registred.
 	 */
 	@GET
-	@Path("/all")
 	@Produces("application/json")
 	public Response getAllPerson() {
 

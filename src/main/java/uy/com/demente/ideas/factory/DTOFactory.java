@@ -1,15 +1,24 @@
-package uy.com.demente.ideas.factrory;
+package uy.com.demente.ideas.factory;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.springframework.beans.BeanUtils;
 
 import uy.com.demente.ideas.dto.BookDTO;
 import uy.com.demente.ideas.dto.PersonDTO;
 import uy.com.demente.ideas.model.Book;
 import uy.com.demente.ideas.model.Person;
 
+/**
+ * @author 1987diegog
+ */
 public class DTOFactory {
+
+	/////////////////////////////////////////////////////////////
+	///////////////////////// PERSONS ///////////////////////////
+	/////////////////////////////////////////////////////////////
 
 	public static List<PersonDTO> getListPersonDTO(List<Person> listPerson) {
 
@@ -27,27 +36,16 @@ public class DTOFactory {
 
 		PersonDTO personDTO = null;
 		if (person != null) {
-
 			personDTO = new PersonDTO();
-
-			System.out.println("Id: " + person.getId());
-			personDTO.setId(person.getId());
-			System.out.println("Name: " + person.getName());
-			personDTO.setName(person.getName());
-			System.out.println("LastName: " + person.getLastName());
-			personDTO.setLastName(person.getLastName());
-			System.out.println("Email: " + person.getEmail());
-			personDTO.setEmail(person.getEmail());
-			System.out.println("Age: " + person.getAge());
-			personDTO.setAge(person.getAge());
-			System.out.println("CellPhone: " + person.getCellPhone());
-			personDTO.setCellPhone(person.getCellPhone());
-			System.out.println("StreetAddress: " + person.getStreetAddress());
-			personDTO.setStreetAddress(person.getStreetAddress());
+			BeanUtils.copyProperties(person, personDTO);
 		}
 
 		return personDTO;
 	}
+
+	/////////////////////////////////////////////////////////////
+	////////////////////////// BOOKS ////////////////////////////
+	/////////////////////////////////////////////////////////////
 
 	public static List<BookDTO> getListBooks(List<Book> listBook) {
 
@@ -66,21 +64,8 @@ public class DTOFactory {
 		BookDTO bookDTO = null;
 
 		if (book != null) {
-
 			bookDTO = new BookDTO();
-
-			System.out.println("Title: " + book.getTitle());
-			bookDTO.setTitle(book.getTitle());
-
-			System.out.println("Author: " + book.getAuthor());
-			bookDTO.setAuthor(book.getAuthor());
-
-			System.out.println("Genre: " + book.getGenre());
-			bookDTO.setGenre(book.getGenre());
-
-			System.out.println("Publisher: " + book.getPublisher());
-			bookDTO.setPublisher(book.getPublisher());
-
+			BeanUtils.copyProperties(book, bookDTO);
 		}
 
 		return bookDTO;

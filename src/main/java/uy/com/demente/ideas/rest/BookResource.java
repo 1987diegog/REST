@@ -15,16 +15,19 @@ import javax.ws.rs.core.Response;
 import com.google.gson.Gson;
 
 import uy.com.demente.ideas.dto.BookDTO;
-import uy.com.demente.ideas.factrory.BOFactory;
-import uy.com.demente.ideas.factrory.DTOFactory;
+import uy.com.demente.ideas.factory.BOFactory;
+import uy.com.demente.ideas.factory.DTOFactory;
 import uy.com.demente.ideas.model.Book;
-import uy.com.demente.ideas.services.BookServices;
+import uy.com.demente.ideas.services.BookService;
 
+/**
+ * @author 1987diegog
+ */
 @Path("books")
-public class BookRESTServices {
+public class BookResource {
 
 	@EJB
-	private BookServices bookServices;
+	private BookService bookServices;
 
 	/**
 	 */
@@ -69,7 +72,6 @@ public class BookRESTServices {
 	 * @return all book on registred.
 	 */
 	@GET
-	@Path("/all")
 	@Produces("application/json")
 	public Response getAllBook() {
 

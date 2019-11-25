@@ -1,11 +1,11 @@
-package uy.com.demente.ideas.DAO;
+package uy.com.demente.ideas.dao;
 
 import java.util.List;
 
 import uy.com.demente.ideas.model.Book;
 
 /**
- * @author diego.gonzalezdurand
+ * @author 1987diegog
  */
 public class BookDAO extends CacheHelper<Book> {
 
@@ -38,13 +38,16 @@ public class BookDAO extends CacheHelper<Book> {
 		return bookDAO;
 	}
 
-	public static Long getSequence() {
-		return sequence++;
-
+	private static Long getSequence() {
+		System.out.println("Current sequence Book: " + sequence);
+		sequence++;
+		System.out.println("Next sequence Book: " + sequence);
+		return sequence;
 	}
 
-	public void addBook(Book book) {
-		this.add(book, sequence);
+	public long addBook(Book book) {
+		this.add(book, getSequence());
+		return sequence;
 	}
 
 	public Book getBook(Long id) {

@@ -1,11 +1,11 @@
-package uy.com.demente.ideas.DAO;
+package uy.com.demente.ideas.dao;
 
 import java.util.List;
 
 import uy.com.demente.ideas.model.Person;
 
 /**
- * @author diego.gonzalezdurand
+ * @author 1987diegog
  */
 public class PersonDAO extends CacheHelper<Person> {
 
@@ -38,7 +38,7 @@ public class PersonDAO extends CacheHelper<Person> {
 		return personDAO;
 	}
 
-	public static Long getSequence() {
+	private static Long getSequence() {
 		System.out.println("Current sequence Person: " + sequence);
 		sequence++;
 		System.out.println("Next sequence Person: " + sequence);

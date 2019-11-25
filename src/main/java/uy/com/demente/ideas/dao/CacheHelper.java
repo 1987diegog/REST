@@ -1,4 +1,4 @@
-package uy.com.demente.ideas.DAO;
+package uy.com.demente.ideas.dao;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,9 +11,7 @@ import org.ehcache.config.builders.CacheManagerBuilder;
 import org.ehcache.config.builders.ResourcePoolsBuilder;
 
 /**
- * 
- * @author diego.gonzalezdurand
- *
+ * @author 1987diegog
  */
 public class CacheHelper<T> {
 

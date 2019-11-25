@@ -5,12 +5,15 @@ import java.util.List;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 
-import uy.com.demente.ideas.DAO.BookDAO;
+import uy.com.demente.ideas.dao.BookDAO;
 import uy.com.demente.ideas.model.Book;
 
+/**
+ * @author 1987diegog
+ */
 @Stateless
 @Local
-public class BookServices {
+public class BookService {
 
 	private BookDAO bookDAO;
 

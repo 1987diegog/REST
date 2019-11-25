@@ -3,7 +3,7 @@ package uy.com.demente.ideas.dto;
 import java.io.Serializable;
 
 /**
- * @author DieSil
+ * @author 1987diegog
  */
 public class PersonDTO implements Serializable {
 

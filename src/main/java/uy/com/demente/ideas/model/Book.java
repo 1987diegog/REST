@@ -3,9 +3,7 @@ package uy.com.demente.ideas.model;
 import java.io.Serializable;
 
 /**
- * 
- * @author diego.gonzalezdurand
- *
+ * @author 1987diegog
  */
 public class Book implements Serializable {
 

@@ -4,12 +4,15 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 
-import uy.com.demente.ideas.DAO.BookDAO;
-import uy.com.demente.ideas.DAO.PersonDAO;
+import uy.com.demente.ideas.dao.BookDAO;
+import uy.com.demente.ideas.dao.PersonDAO;
 import uy.com.demente.ideas.model.Book;
 import uy.com.demente.ideas.model.LoadEnum;
 import uy.com.demente.ideas.model.Person;
 
+/**
+ * @author 1987diegog
+ */
 @Startup
 @Singleton
 public class Init {
@@ -28,7 +31,7 @@ public class Init {
 			PersonDAO personDAO = PersonDAO.getInstance();
 
 			for (int i = 0; i < PersonDAO.CONFIG_HEAP; i++) {
-				Person mockPerson = MockPersons.generateMockPerson(PersonDAO.getSequence());
+				Person mockPerson = MockPerson.generateMockPerson();
 				personDAO.addPerson(mockPerson);
 			}
 		}
@@ -38,7 +41,7 @@ public class Init {
 			BookDAO bookDAO = BookDAO.getInstance();
 
 			for (int i = 0; i < BookDAO.CONFIG_HEAP; i++) {
-				Book mockBook = MockBooks.generateMockBook(BookDAO.getSequence());
+				Book mockBook = MockBook.generateMockBook();
 				bookDAO.addBook(mockBook);
 			}
 		}

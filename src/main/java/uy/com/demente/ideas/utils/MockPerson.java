@@ -4,7 +4,10 @@ import com.github.javafaker.Faker;
 
 import uy.com.demente.ideas.model.Person;
 
-public class MockPersons {
+/**
+ * @author 1987diegog
+ */
+public class MockPerson {
 
 	private static final int AGE_INIT = 18;
 	private static final int AGE_FINAL = 68;
@@ -14,12 +17,11 @@ public class MockPersons {
 	 * @param id
 	 * @return
 	 */
-	public static Person generateMockPerson(Long id) {
+	public static Person generateMockPerson() {
 
 		Faker faker = new Faker();
 		Person person = new Person();
 
-		person.setId(id);
 		person.setName(faker.name().firstName());
 		person.setLastName(faker.name().lastName());
 		person.setStreetAddress(faker.address().streetAddress());

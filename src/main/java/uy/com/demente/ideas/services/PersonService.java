@@ -5,12 +5,15 @@ import java.util.List;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 
-import uy.com.demente.ideas.DAO.PersonDAO;
+import uy.com.demente.ideas.dao.PersonDAO;
 import uy.com.demente.ideas.model.Person;
 
+/**
+ * @author 1987diegog
+ */
 @Stateless
 @Local
-public class PersonServices {
+public class PersonService {
 
 	private PersonDAO personDAO;
 
