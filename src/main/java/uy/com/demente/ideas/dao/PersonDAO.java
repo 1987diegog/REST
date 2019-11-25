@@ -7,7 +7,7 @@ import uy.com.demente.ideas.model.Person;
 /**
  * @author 1987diegog
  */
-public class PersonDAO extends CacheHelper<Person> {
+public class PersonDAO extends CacheHelper<Long, Person> {
 
 	private static PersonDAO personDAO;
 
@@ -18,7 +18,7 @@ public class PersonDAO extends CacheHelper<Person> {
 
 	private PersonDAO() {
 
-		super(Person.class, NAME_CACHE_PERSONS);
+		super(Long.class, Person.class, NAME_CACHE_PERSONS);
 		initCacheHelper(CONFIG_HEAP);
 
 		sequence = 0L;
@@ -46,7 +46,7 @@ public class PersonDAO extends CacheHelper<Person> {
 	}
 
 	public long addPerson(Person person) {
-		this.add(person, getSequence());
+		this.add(getSequence(), person);
 		return sequence;
 	}
 

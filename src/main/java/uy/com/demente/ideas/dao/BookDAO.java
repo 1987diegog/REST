@@ -7,7 +7,7 @@ import uy.com.demente.ideas.model.Book;
 /**
  * @author 1987diegog
  */
-public class BookDAO extends CacheHelper<Book> {
+public class BookDAO extends CacheHelper<Long, Book> {
 
 	private static BookDAO bookDAO;
 
@@ -18,7 +18,7 @@ public class BookDAO extends CacheHelper<Book> {
 
 	private BookDAO() {
 
-		super(Book.class, NAME_CACHE_BOOKS);
+		super(Long.class, Book.class, NAME_CACHE_BOOKS);
 		initCacheHelper(CONFIG_HEAP);
 
 		sequence = 0L;
@@ -46,7 +46,7 @@ public class BookDAO extends CacheHelper<Book> {
 	}
 
 	public long addBook(Book book) {
-		this.add(book, getSequence());
+		this.add(getSequence(), book);
 		return sequence;
 	}
 

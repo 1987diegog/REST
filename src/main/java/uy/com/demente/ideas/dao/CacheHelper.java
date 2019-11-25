@@ -13,17 +13,19 @@ import org.ehcache.config.builders.ResourcePoolsBuilder;
 /**
  * @author 1987diegog
  */
-public class CacheHelper<T> {
+public class CacheHelper<K, V> {
 
-	private Class<T> cacheType;
+	private Class<K> cacheKey;
+	private Class<V> cacheValue;
 	private CacheManager cacheManager;
-	private Cache<Long, T> dementeCache;
+	private Cache<K, V> dementeCache;
 	private String nameCache;
 
 	/**
 	 */
-	protected CacheHelper(Class<T> cacheType, String nameCache) {
-		this.cacheType = cacheType;
+	protected CacheHelper(Class<K> cacheKey, Class<V> cacheValue, String nameCache) {
+		this.cacheKey = cacheKey;
+		this.cacheValue = cacheValue;
 		this.nameCache = nameCache;
 	}
 
@@ -33,49 +35,49 @@ public class CacheHelper<T> {
 		cacheManager.init();
 
 		dementeCache = cacheManager.createCache(nameCache, CacheConfigurationBuilder
-				.newCacheConfigurationBuilder(Long.class, cacheType, ResourcePoolsBuilder.heap(heapSize)));
+				.newCacheConfigurationBuilder(cacheKey, cacheValue, ResourcePoolsBuilder.heap(heapSize)));
 
 	}
 
-	public Cache<Long, T> getDementeCacheFromCacheManager() {
-		return cacheManager.getCache(nameCache, Long.class, cacheType);
+	public Cache<K, V> getDementeCacheFromCacheManager() {
+		return cacheManager.getCache(nameCache, cacheKey, cacheValue);
 	}
 
-	protected void add(T data, Long index) {
-		Cache<Long, T> cache = getDementeCacheFromCacheManager();
-		cache.put(index, data);
+	protected void add(K key, V value) {
+		Cache<K, V> cache = getDementeCacheFromCacheManager();
+		cache.put(key, value);
 	}
 
-	protected T get(Long id) {
-		Cache<Long, T> cache = getDementeCacheFromCacheManager();
-		return cache.get(id);
+	protected V get(K key) {
+		Cache<K, V> cache = getDementeCacheFromCacheManager();
+		return cache.get(key);
 	}
 
-	protected T replace(Long id, T data) {
-		Cache<Long, T> cache = getDementeCacheFromCacheManager();
-		return cache.replace(id, data);
+	protected V replace(K key, V value) {
+		Cache<K, V> cache = getDementeCacheFromCacheManager();
+		return cache.replace(key, value);
 	}
 
-	protected void delete(Long id) {
-		Cache<Long, T> cache = getDementeCacheFromCacheManager();
-		cache.remove(id);
+	protected void delete(K key) {
+		Cache<K, V> cache = getDementeCacheFromCacheManager();
+		cache.remove(key);
 	}
 
-	protected List<T> getAll() {
+	protected List<V> getAll() {
 
-		List<Cache.Entry<Long, T>> listEntry = StreamSupport
-				.stream(getDementeCacheFromCacheManager().spliterator(), false).collect(Collectors.toList());
-		List<T> listObject = listEntry.stream().map(Cache.Entry::getValue).collect(Collectors.toList());
+		List<Cache.Entry<K, V>> listEntry = StreamSupport.stream(getDementeCacheFromCacheManager().spliterator(), false)
+				.collect(Collectors.toList());
+
+		List<V> listObject = listEntry.stream().map(Cache.Entry::getValue).collect(Collectors.toList());
 
 		return listObject;
-
 	}
 
-	protected Cache<Long, T> getDementeCache() {
+	protected Cache<K, V> getDementeCache() {
 		return dementeCache;
 	}
 
-	protected void setDementeCache(Cache<Long, T> dementeCache) {
+	protected void setDementeCache(Cache<K, V> dementeCache) {
 		this.dementeCache = dementeCache;
 	}
 }

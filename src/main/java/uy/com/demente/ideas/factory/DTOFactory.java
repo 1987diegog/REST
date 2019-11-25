@@ -8,13 +8,30 @@ import org.springframework.beans.BeanUtils;
 
 import uy.com.demente.ideas.dto.BookDTO;
 import uy.com.demente.ideas.dto.PersonDTO;
+import uy.com.demente.ideas.dto.SessionDTO;
 import uy.com.demente.ideas.model.Book;
 import uy.com.demente.ideas.model.Person;
+import uy.com.demente.ideas.model.Session;
 
 /**
  * @author 1987diegog
  */
 public class DTOFactory {
+
+	/////////////////////////////////////////////////////////////
+	//////////////////////// SESSIONS ///////////////////////////
+	/////////////////////////////////////////////////////////////
+
+	public static SessionDTO getSessionDTO(Session session) {
+
+		SessionDTO sessionDTO = null;
+		if (session != null) {
+			sessionDTO = new SessionDTO();
+			BeanUtils.copyProperties(session, sessionDTO);
+		}
+
+		return sessionDTO;
+	}
 
 	/////////////////////////////////////////////////////////////
 	///////////////////////// PERSONS ///////////////////////////
