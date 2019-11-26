@@ -1,6 +1,6 @@
 # REST
 Proyecto a modo de ejemplo que expone una API *REST*, especificación *JAX-RS* e implementación *RESTEasy*
-Para simular una BD se utiliza un *cache* el cual es cargado al deployar la aplicación con objetos del tipo *Person*.
+Para simular una BD se utiliza *Ehcache*, el mismo es inicializado con algunos datos al momento de desplegar la aplicacion.
 
 El proyecto cuenta con una bateria de test TDD para probar cada servicio expuesto
 
@@ -37,17 +37,31 @@ El proyecto cuenta con una bateria de test TDD para probar cada servicio expuest
 
     /rest-jax-rs-resteasy/rest/persons/15
 
-## Resumen
+## Resumen:
 
-- *JEE*
-**Java 8**
-**EJB**
+- **JEE**
 
-- *Cache*
-**Ehcache**
+*EJB*
 
-- *TDD*
-**Junit**
+- **Cache**
+*Ehcache*
 
-- *Servidor de aplicaciones*
-**wildfly-16.0.0.Final**
+- **TDD**
+*Junit*
+
+- **Servidor de aplicaciones**
+*wildfly-16.0.0.Final*
+
+- **Java 8**
+*Java Generics*
+*Lambdas*
+*Stream*
+
+- **Otros**
+*Data Transfer Object - DTO*
+*Data Acces Object - DAO*
+*Arquitectura REST*
+*Swagger*
+*.properties*
+
+
