@@ -46,8 +46,11 @@ public class BookDAO extends CacheHelper<Long, Book> {
 	}
 
 	public long addBook(Book book) {
-		this.add(getSequence(), book);
-		return sequence;
+
+		book.setId(getSequence());
+		this.add(book.getId(), book);
+
+		return book.getId();
 	}
 
 	public Book getBook(Long id) {

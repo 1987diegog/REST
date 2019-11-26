@@ -46,8 +46,11 @@ public class PersonDAO extends CacheHelper<Long, Person> {
 	}
 
 	public long addPerson(Person person) {
-		this.add(getSequence(), person);
-		return sequence;
+
+		person.setId(getSequence());
+		this.add(person.getId(), person);
+
+		return person.getId();
 	}
 
 	public Person getPerson(Long id) {

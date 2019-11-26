@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -33,7 +34,7 @@ public class BookResource {
 	 */
 	@POST
 	@Produces("application/json")
-	public Response addBook(BookDTO bookDTO) {
+	public Response addBook(@HeaderParam("Session-Token") String sessionToken, BookDTO bookDTO) {
 
 		Response.ResponseBuilder builder = null;
 
@@ -92,7 +93,7 @@ public class BookResource {
 	 */
 	@PUT
 	@Produces("application/json")
-	public String modifyBookPUT(BookDTO bookDTO) {
+	public String modifyBookPUT(@HeaderParam("Session-Token") String sessionToken, BookDTO bookDTO) {
 
 		Book book = BOFactory.getBook(bookDTO);
 		bookServices.modifyBook(book);
@@ -103,7 +104,7 @@ public class BookResource {
 	@DELETE
 	@Path("{id}")
 	@Produces("application/json")
-	public String deleteBook(@PathParam("id") String id) {
+	public String deleteBook(@HeaderParam("Session-Token") String sessionToken, @PathParam("id") String id) {
 
 		System.out.println("ID book: " + id);
 		bookServices.deleteBook(Long.valueOf(id));
