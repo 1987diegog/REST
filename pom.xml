@@ -21,16 +21,11 @@
 
 	<dependencies>
 
+		<!-- https://mvnrepository.com/artifact/io.swagger/swagger-jaxrs -->
 		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger2</artifactId>
-			<version>2.6.1</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger-ui</artifactId>
-			<version>2.6.1</version>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-jaxrs</artifactId>
+			<version>1.6.0</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-beans -->
@@ -39,7 +34,6 @@
 			<artifactId>spring-beans</artifactId>
 			<version>5.2.1.RELEASE</version>
 		</dependency>
-
 
 		<dependency>
 			<groupId>junit</groupId>
