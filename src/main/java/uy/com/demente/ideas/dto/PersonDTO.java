@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * @author 1987diegog
  */
-public class PersonDTO implements Serializable {
+public class PersonDTO extends ResponseDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

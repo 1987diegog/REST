@@ -12,11 +12,16 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import uy.com.demente.ideas.dto.PersonDTO;
 import uy.com.demente.ideas.dto.ResponseDTO;
 import uy.com.demente.ideas.exception.InvalidSessionException;
@@ -29,6 +34,10 @@ import uy.com.demente.ideas.services.SecurityService;
 /**
  * @author 1987diegog
  */
+@Api( // Swagger config
+		value = "Resources for Person", //
+		produces = MediaType.APPLICATION_JSON, //
+		consumes = MediaType.APPLICATION_JSON)
 @Path("persons")
 public class PersonResource {
 
@@ -46,6 +55,12 @@ public class PersonResource {
 	 */
 	@POST
 	@Produces("application/json")
+	@ApiOperation( // Swagger Api Operation
+			value = "Add new Person. ", //
+			httpMethod = "POST")
+	@ApiResponses(value = { //
+			@ApiResponse(code = 201, message = "Person added successfully", response = PersonDTO.class),
+			@ApiResponse(code = 500, message = "Unexpected Server Error", response = ResponseDTO.class) })
 	public Response addPerson(@HeaderParam("Session-Token") String sessionToken, PersonDTO personDTO) {
 
 		Response.ResponseBuilder builder = null;
