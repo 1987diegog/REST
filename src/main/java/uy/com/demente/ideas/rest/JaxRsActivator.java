@@ -23,26 +23,29 @@ public class JaxRsActivator extends Application {
 
 		BeanConfig conf = new BeanConfig();
 
-		conf.setTitle("REST API - (JAX-RS) impl Resteasy");
-		conf.setDescription("Servicios REST");
-		conf.setVersion("1.0.0");
-		conf.setHost("localhost:8080");
-		conf.setBasePath("/rest-jax-rs-resteasy/rest");
+		conf.setTitle("REST API - (JAX-RS) impl. RESTEasy");
+		conf.setDescription("Ejemplo de API REST, los servicios forman parte del"
+				+ " backend de una libreria, donde se podrá consultar las personas" //
+				+ " que sean miembros de la libreria, los libros de la misma, y que libros" //
+				+ " posee cada persona");
 
-		Info info = new Info();
+		conf.setVersion("v1.0.0");
+		conf.setHost("localhost:8080");
+		conf.setResourcePackage("uy.com.demente.ideas");
+		conf.setBasePath("/rest-jax-rs-resteasy/rest");
+		conf.setSchemes(new String[] { "HTTP", "HTTPS" });
 
 		Contact contact = new Contact();
 		contact.setEmail("1987diegog@gmail.com");
-		contact.setName("Diego Gonzalez");
+		contact.setName("Diego González");
+		contact.setUrl("https://github.com/1987diegog");
+
+		Info info = new Info();
+		info.setDescription("API REST de servicios backend");
+		info.setTitle("REST API - (JAX-RS) impl. RESTEasy");
+		info.setVersion("v1.0.0");
 		info.setContact(contact);
-
-		info.setDescription("API REST de servicios backend.");
-		info.setTitle("REST API - (JAX-RS) impl Resteasy");
-		info.setVersion("1.0.0");
 		conf.setInfo(info);
-
-		conf.setSchemes(new String[] { "http" });
-		conf.setResourcePackage("uy.com.demente.ideas");
 
 		// Carga la info de BeanConfig
 		conf.setScan(true);
