@@ -52,14 +52,20 @@ public class PersonResource {
 	private SecurityService securtyServices;
 
 	/**
+	 * Add a new Person
+	 * 
+	 * @param sessionToken
+	 * @param personDTO
+	 * @return The new person that was created
 	 */
 	@POST
-	@Produces("application/json")
+	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation( // Swagger Api Operation
-			value = "Add new Person. ", //
+			value = "Add a new Person", //
 			httpMethod = "POST")
 	@ApiResponses(value = { //
 			@ApiResponse(code = 201, message = "Person added successfully", response = PersonDTO.class),
+			@ApiResponse(code = 401, message = "Access not allowed", response = ResponseDTO.class),
 			@ApiResponse(code = 500, message = "Unexpected Server Error", response = ResponseDTO.class) })
 	public Response addPerson(@HeaderParam("Session-Token") String sessionToken, PersonDTO personDTO) {
 
@@ -94,18 +100,25 @@ public class PersonResource {
 	}
 
 	/**
-	 * @return the person with equal id param
+	 * @param id
+	 * @return The person whose id is indicated in the path parameter
 	 */
 	@GET
 	@Path("{id}")
-	@Produces("application/json")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation( // Swagger Api Operation
+			value = "Returns the person whose id is indicated in the path parameter", //
+			httpMethod = "POST")
+	@ApiResponses(value = { //
+			@ApiResponse(code = 200, message = "Request successful, the person was returned", response = PersonDTO.class),
+			@ApiResponse(code = 500, message = "Unexpected Server Error", response = ResponseDTO.class) })
 	public Response getPerson(@PathParam("id") String id) {
 
 		Response.ResponseBuilder builder = null;
 
 		try {
 
-			System.out.println("ID person: " + id);
+			System.out.println(TAG + "ID person: " + id);
 			Person person = personServices.getPerson(Long.valueOf(id));
 
 			PersonDTO personDTO = DTOFactory.getPersonDTO(person);
@@ -123,10 +136,16 @@ public class PersonResource {
 	}
 
 	/**
-	 * @return all person on registred.
+	 * @return All people in the system
 	 */
 	@GET
-	@Produces("application/json")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation( // Swagger Api Operation
+			value = "Returns all people in the system", //
+			httpMethod = "POST")
+	@ApiResponses(value = { //
+			@ApiResponse(code = 200, message = "Request successful, all people are returned", response = PersonDTO.class),
+			@ApiResponse(code = 500, message = "Unexpected Server Error", response = ResponseDTO.class) })
 	public Response getAllPerson() {
 
 		Response.ResponseBuilder builder = null;
@@ -152,7 +171,15 @@ public class PersonResource {
 	/**
 	 */
 	@PUT
-	@Produces("application/json")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation( // Swagger Api Operation
+			value = "Modify the indicated person", //
+			httpMethod = "POST")
+	@ApiResponses(value = { //
+			@ApiResponse(code = 200, message = "Request successful, the person was modified", response = PersonDTO.class),
+			@ApiResponse(code = 401, message = "Access not allowed", response = ResponseDTO.class),
+			@ApiResponse(code = 500, message = "Unexpected Server Error", response = ResponseDTO.class) })
 	public Response modifyPersonPUT(@HeaderParam("Session-Token") String sessionToken, PersonDTO personDTO) {
 
 		Response.ResponseBuilder builder = null;
@@ -162,11 +189,12 @@ public class PersonResource {
 			securtyServices.validateSessionToken(sessionToken);
 
 			Person person = BOFactory.getPerson(personDTO);
-			personServices.modifyPerson(person);
-			log.info("Person with id/name: " + personDTO.getId() + "/" + personDTO.getName() + " modify ok");
+			Person personModify = personServices.modifyPerson(person);
+			log.info(TAG + "Person with id/name: " + personDTO.getId() + "/" + personDTO.getName() + " modify ok");
+			PersonDTO personModifyDTO = DTOFactory.getPersonDTO(personModify);
 
 			// Creo una respuesta con codigo "OK".
-			builder = Response.status(Response.Status.OK).entity("");
+			builder = Response.status(Response.Status.OK).entity(personModifyDTO);
 
 		} catch (InvalidSessionException e) {
 			ResponseDTO responseDTO = new ResponseDTO();
@@ -186,12 +214,42 @@ public class PersonResource {
 
 	@DELETE
 	@Path("{id}")
-	@Produces("application/json")
-	public String deletePerson(@HeaderParam("Session-Token") String sessionToken, @PathParam("id") String id) {
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation( // Swagger Api Operation
+			value = "Remove the person", //
+			httpMethod = "POST")
+	@ApiResponses(value = { //
+			@ApiResponse(code = 200, message = "Request successful, the person was removed", response = PersonDTO.class),
+			@ApiResponse(code = 401, message = "Access not allowed", response = ResponseDTO.class),
+			@ApiResponse(code = 500, message = "Unexpected Server Error", response = ResponseDTO.class) })
+	public Response deletePerson(@HeaderParam("Session-Token") String sessionToken, @PathParam("id") String id) {
 
-		System.out.println("ID person: " + id);
-		personServices.deletePerson(Long.valueOf(id));
+		Response.ResponseBuilder builder = null;
 
-		return "OK";
+		try {
+
+			securtyServices.validateSessionToken(sessionToken);
+
+			log.info(TAG + "Deleted person whit id: " + id);
+			personServices.deletePerson(Long.valueOf(id));
+			log.info(TAG + "Person with id/name: " + id + " was deleted");
+
+			// Creo una respuesta con codigo "OK".
+			builder = Response.status(Response.Status.OK).entity(messages.getString("success.deleted"));
+
+		} catch (InvalidSessionException e) {
+			ResponseDTO responseDTO = new ResponseDTO();
+			log.error(TAG + messages.getString("error.unauthorized"), e);
+			responseDTO.setMenssage(messages.getString("error.unauthorized"));
+			builder = Response.status(Response.Status.UNAUTHORIZED).entity(responseDTO);
+		} catch (Throwable e) {
+			ResponseDTO responseDTO = new ResponseDTO();
+			log.error(TAG + messages.getString("error.unexpected"), e);
+			responseDTO.setMenssage(messages.getString("error.unexpected"));
+			builder = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(responseDTO);
+		}
+
+		return builder.build();
+
 	}
 }
